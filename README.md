@@ -7,6 +7,11 @@
 
 </details>
 
+## 下载方式
+- 模组文件下载请见右侧/底部的 [Releases(发行版)](https://github.com/Nephthelana/DoL-More-Love-Interests-Mod/releases)。
+- Assets中含有1个文件：
+  - 更多恋人.mod.zip：模组本体。
+- 模组加载方式与加载汉化包、图片包相同。具体步骤可参考[汉化组Github仓库的说明页面](https://github.com/Eltirosto/Degrees-of-Lewdity-Chinese-Localization?tab=readme-ov-file#%E5%8F%91%E5%B8%83%E4%B8%8B%E8%BD%BD%E7%89%88)
 ## 使用说明
 本模组对于原版设定恋人的机制改动如下：
 - 删除主要恋人/次要恋人选项。恋人数量不受意识等级影响，上限为9；
