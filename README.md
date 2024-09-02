@@ -1,4 +1,6 @@
 # DoL-More-Love-Interests-Mod
+| [贴吧发布帖](https://tieba.baidu.com/p/9155174979) |
+
 目标是解决在DoL中只能设置两个伴侣的问题（）
 <details>
   <summary>点击查看图片</summary>
