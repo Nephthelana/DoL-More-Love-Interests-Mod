@@ -5,7 +5,7 @@
 <details>
   <summary>点击查看图片</summary>
 
-  ![模组截图](https://github.com/user-attachments/assets/7f5f3e0a-6585-4ac6-92f4-06129b38343b)
+  ![模组截图](https://github.com/user-attachments/assets/004095ad-d8ab-4860-aa4e-011d8a909b97)
 
 </details>
 
@@ -18,6 +18,13 @@
 - 态度页面也能看到li们的小头像图标啦！感谢 [Eudemonism00](https://github.com/Eudemonism00) 的支持！
 - 来自模组作者的`图像说明`："您已使用NPC头像增添模组。游戏作者并未提供各位角色的具体形象，头像为模组二次创作，仅供爱好者交流，请勿将其当作官方形象"
 - ps：来自npc社交栏小头像模组作者：欢迎大家在社交栏NPC小头像模组的基础上二创，设计自己的npc小头像图标，达到类似切换美化的效果！有意向者请联系[Eudemonism00](https://github.com/Eudemonism00)～
+- <details>
+  <summary>点击查看图片</summary>
+
+  ![模组截图](https://github.com/user-attachments/assets/05814e60-d193-4d43-a37c-ea65f5495706)
+
+</details>
+
 ## 使用说明
 本模组对于原版设定恋人的机制改动如下：
 - 删除主要恋人/次要恋人选项。恋人数量不受意识等级影响，上限为9；
