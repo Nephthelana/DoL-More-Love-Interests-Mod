@@ -1,6 +1,6 @@
 {
 	"name": "More Love Interests Mod",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"styleFileList": [],
 	"scriptFileList": [],
 	"tweeFileList": [],
@@ -80,12 +80,37 @@
 				"_comment":"放逐惠特尼时，从恋人列表中清除惠特尼"
 			  }
 			]
-		}
+		},
+		{
+			"modName": "ReplacePatcher",
+			"addonName": "ReplacePatcherAddon",
+			"modVersion": "1.0.0",
+			"params": {
+			  "js": [
+				{
+				  "from": "V.loveInterest.secondary !== \"None\"",
+				  "to": "V.loveInterest.secondary !== \"None\" && false",
+				  "fileName": "time.js",
+				  "_comment":"取消原版意识等级降低/升高后，引起恋人数量变化的提示"
+				},
+				{
+				  "from": "V.loveInterestAwareMessage",
+				  "to": "V.loveInterestAwareMessage && false",
+				  "fileName": "time.js",
+				  "_comment":"取消原版意识等级降低/升高后，引起恋人数量变化的提示"
+				}
+			]
+		  }
+		}		
 	],
 	"dependenceInfo": [
 	  {
 		"modName": "TweeReplacer",
 		"version": ">=1.0.0"
+	  },
+	  {
+		"modName": "ReplacePatcher",
+		"version": "^1.0.0"
 	  }
 	]
   }

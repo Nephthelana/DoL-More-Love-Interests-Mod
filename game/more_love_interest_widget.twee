@@ -65,6 +65,8 @@
 			<<potentialLoveInterestList>>
 		</span>
 	<</if>>
+	/* 设为已经显示了“你对多个恋人持开放态度”的情况 */
+	<<set $loveInterestAwareMessage to true>>
 
 <</widget>>
 
