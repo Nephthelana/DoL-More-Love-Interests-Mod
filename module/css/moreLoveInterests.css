@@ -1,6 +1,6 @@
 .moreLoveInterests {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 70px);
+	grid-template-columns: repeat(auto-fill, 5.5em);
 	gap: 5px;
 	padding: 0.5rem;
 }
@@ -12,6 +12,22 @@
 	100% { color: #FF6392; } 
   }
    
-  .moreLoveInterests-blinking {
+.moreLoveInterests-blinking {
 	animation: blink 1.5s infinite; /* 每1.5秒闪烁一次，无限循环 */
-  }
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	align-items: center;
+	text-align: center;
+	border: 1px solid var(--200);
+	padding: 5px;
+}
+
+.item hr {
+	border-top: 1px solid var(--600);
+	margin: 2px;
+	width: 100%;
+}

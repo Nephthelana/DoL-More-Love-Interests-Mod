@@ -43,8 +43,14 @@
 	<<if $dateCount.Avery gte 3 and C.npc.Avery.state isnot "dismissed">>
 		<<run _potentialLoveInterests.push("Avery")>>
 	<</if>>
-	<<if $syndromewolves is 1 and hasSexStat("deviancy", 3)>>
-		<<run _potentialLoveInterests.push("Black Wolf")>>
+	<<if StartConfig.version.slice(0) lt "0.5.1.0">>
+		<<if $syndromewolves is 1 and $deviancy gte 35>>
+			<<run _potentialLoveInterests.push("Black Wolf")>>
+		<</if>>
+	<<else>>
+		<<if $syndromewolves is 1 and hasSexStat("deviancy", 3)>>
+			<<run _potentialLoveInterests.push("Black Wolf")>>
+		<</if>>
 	<</if>>
 	<<if $syndromebird is 1>>
 		<<run _potentialLoveInterests.push("Great Hawk")>>
@@ -85,10 +91,9 @@
 		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且更换恋人不会导致该特质的负面影响；
 	</span></mouse> |
 	<span class="gold">！</span><mouse class="tooltip linkBlue">注意事项<span>
-		1.本模组在游戏版本为0.5.1.3的情况下编写，更早的版本中可能会出现问题；<br>
-		2.经过测试，本模组在0.5.2.x版本下可以正常运行；<br>
-		3.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下。<br>
-		4.写着玩的，不要二传。
+		1.本模组适配0.5.0.x及以上的版本，更早的游戏版本未经测试；<br>
+		2.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下。<br>
+		3.写着玩的，不要二传。
 	</span></mouse> |
 	<<if hasNPCAvatarsModInfo() or hasNPCAvatarsModSFInfo()>>
 		<span class="lewd">❤️</span><mouse class="tooltip linkBlue">图像说明<span>
