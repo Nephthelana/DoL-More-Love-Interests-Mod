@@ -1,14 +1,15 @@
 {
   "name": "More Love Interests Mod",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "styleFileList": [
     "module/css/moreLoveInterests.css"
   ],
   "scriptFileList": [
-    "game/NPC_Avatars_Mod_Collab.js"
+    "game/More_Love_Interest_Mod_Collab.js"
   ],
   "tweeFileList": [
-    "game/more_love_interest_widget.twee"
+    "game/more_love_interest_widget.twee",
+    "game/more_love_interest_icon.twee"
   ],
   "imgFileList": [],
   "addonPlugin": [

@@ -1,8 +1,7 @@
-:: More Love Interests [widget]
-/* 模组主要内容 */
+:: More Love Interests UI [widget]
 <<widget "moreLoveInterest">>
 
-	/* 初始化第4-9个恋人槽位 */
+	<!-- 初始化第4-9个恋人槽位 -->
 	<<if $loveInterest.quaternary is undefined>>
 		<<set $loveInterest to {
 			primary: $loveInterest.primary,
@@ -16,14 +15,18 @@
 			nonary: "None"
 		}>>
 	<</if>>
-	/* 初始化恋人列表，将已设定的恋人加入到数组中 */
+	<!-- 初始化第10个恋人槽位 -->
+	<<if $loveInterest.decimal is undefined>>
+		<<set $loveInterest.decimal to "None">>
+	<</if>>
+	<!-- 初始化恋人列表，将已设定的恋人加入到数组中 -->
 	<<if $loveInterestList is undefined>>
 		<<set $loveInterestList to []>>
 		<<run $loveInterest.primary isnot "None" ? $loveInterestList.pushUnique($loveInterest.primary) : null>>
 		<<run $loveInterest.secondary isnot "None" ? $loveInterestList.pushUnique($loveInterest.secondary) : null>>
 		<<run $loveInterest.tertiary isnot "None" ? $loveInterestList.pushUnique($loveInterest.tertiary) : null>>
 	<</if>>
-	/* 原版生成潜在恋爱兴趣的数组 */
+	<!-- 原版生成潜在恋爱兴趣的数组 -->
 	<<set _potentialLoveInterests = []>>
 	<<if $robinromance is 1>>
 		<<run _potentialLoveInterests.push("Robin")>>
@@ -58,9 +61,13 @@
 	<<if $farm_stage gte 7 and $alex_countdown is undefined>>
 		<<run _potentialLoveInterests.push("Alex")>>
 	<</if>>
-	/* 模组信息 */
+	<!-- 雷米恋爱模组 -->
+	<<if hasRemyLoveModInfo() and $remyromance is 1>>
+	   	<<run _potentialLoveInterests.push("Remy")>>
+	<</if>>
+	<!-- 模组信息 -->
 	<<moreLoveInterestHint>>
-	/* 交互UI */
+	<!-- 交互UI -->
 	<<if _potentialLoveInterests.length lte 0>>
 		<span class="black"><i>你还没有对任何人产生爱慕。</i></span>
 	<<else>>
@@ -71,14 +78,13 @@
 			<<potentialLoveInterestList>>
 		</span>
 	<</if>>
-	/* 设为已经显示了“你对多个恋人持开放态度”的情况 */
+	<!-- 设为已经显示了“你对多个恋人持开放态度”的情况 -->
 	<<set $loveInterestAwareMessage to true>>
 
 <</widget>>
 
-/* 模组信息提示 */
+<!-- 模组信息 -->
 <<widget "moreLoveInterestHint">>
-
 	<<set _style to "background: linear-gradient(to right,#e646c6 0%, #ffffff 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">>
 	<span @style="_style">
 		更多恋人
@@ -86,9 +92,9 @@
 	模组<br>
 	| <span class="red">？</span><mouse class="tooltip linkBlue">使用须知<span>
 		本模组对于原版设定恋人的机制改动如下：<br>
-		1.删除主要恋人/次要恋人选项。恋人数量不受<i>意识</i>等级影响，上限为9；<br>
-		2.个人能力有限，无法设定模组新增的li为恋人(包括模组将游戏原有的非li命名npc设置为li的情况)；<br>
-		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且更换恋人不会导致该特质的负面影响；
+		1.删除主要恋人/次要恋人选项。恋人数量不受<i>意识</i>等级影响，上限为10；<br>
+		2.目前只能设定原版9位li，以及雷米恋爱模组新增的雷米li，共10个NPC为恋人；<br>
+		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且更换恋人不会导致该特质的负面影响。
 	</span></mouse> |
 	<span class="gold">！</span><mouse class="tooltip linkBlue">注意事项<span>
 		1.本模组适配0.5.0.x及以上的版本，更早的游戏版本未经测试；<br>
@@ -100,231 +106,70 @@
 			您已使用NPC头像增添模组。游戏作者并未提供各位角色的具体形象，头像为模组二次创作，仅供爱好者交流，请勿将其当作官方形象</span>
 		</mouse> |
 	<</if>><br>
-
+	🔘
+	<span class="no-numberify">
+		<<if $dragMode>>
+			<<link [[拖拽模式|Attitudes]]>><<set $dragMode to undefined>><</link>>
+		<<else>>
+			<<link [[选项模式|Attitudes]]>><<set $dragMode to true>><</link>>
+		<</if>>
+	</span>
+	<mouse class="tooltip linkBlue">(?)<span>
+		点击以调整恋人列表的操作模式<br>
+		选项模式：通过点击箭头调整恋人列表<br>
+		拖拽模式：通过拖拽NPC的名称至对应区域来调整恋人列表(暂不支持调整恋人次序)<br>
+	</span></mouse>
+	<br>
 <</widget>>
 
-/* 交互UI */
+<!-- 交互UI -->
 <<widget "LoveInterestList">>
 	<span class="no-numberify">
-		/* 将设定好的恋人列表填充入恋人栏中 */
+		<!-- 将设定好的恋人列表填充入恋人栏中 -->
 		<<moreLoveInterestConfirm>>
-		/* 生成NPC的中文名 */
+		<!-- 生成NPC的中文名 -->
 		<<set _loveInterestcn to []>>
-		<<run $loveInterestList.forEach((x)=>_loveInterestcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰")))>>
-		<span class="lewd">恋人</span><br>
-		<<if $loveInterestList.length gt 0>>
-			<div class="moreLoveInterests">
-				<<for _k to 0; _k lt $loveInterestList.length; _k++>>
-					<<capture _k>>
-						<div class="item">
-							<<if hasNPCAvatarsModSFInfo()>>
-								<<switch $loveInterestList[_k]>>
-									<<case "Robin">>
-										<<set _i to 16>>
-										<<RobinOpinionIcon>>
-									<<case "Kylar">>
-										<<set _i to 10>>
-										<<KylarOpinionIcon>>
-									<<case "Whitney">>
-										<<set _i to 19>>
-										<<WhitneyOpinionIcon>>
-									<<case "Sydney">>
-										<<set _i to 28>>
-										<<SydneyOpinionIcon>>
-									<<case "Avery">>
-										<<set _i to 0>>
-										<<AveryOpinionIcon>>
-									<<case "Alex">>
-										<<set _i to 25>>
-										<<AlexOpinionIcon>>
-									<<case "Eden">>
-										<<set _i to 6>>
-										<<EdenOpinionIcon>>
-									<<case "Great Hawk">>
-										<<set _i to 26>>
-										<<GreatHawkOpinionIcon>>
-									<<case "Black Wolf">>
-										<<set _i to 21>>
-										<<BlackWolfOpinionIcon>>
-								<</switch>>
-							<<elseif hasNPCAvatarsModInfo()>>
-								<<switch $loveInterestList[_k]>>
-									<<case "Robin">>
-										<<set _npc to "Robin">>
-										<<set _i to 16>>
-									<<case "Kylar">>
-										<<set _npc to "Kylar">>
-										<<set _i to 10>>
-									<<case "Whitney">>
-										<<set _npc to "Whitney">>
-										<<set _i to 19>>
-									<<case "Sydney">>
-										<<set _npc to "Sydney">>
-										<<set _i to 28>>
-									<<case "Avery">>
-										<<set _npc to "Avery">>
-										<<set _i to 0>>
-									<<case "Alex">>
-										<<set _npc to "Alex">>
-										<<set _i to 25>>
-									<<case "Eden">>
-										<<set _npc to "Eden">>
-										<<set _i to 6>>
-									<<case "Great Hawk">>
-										<<set _npc to "Great Hawk">>
-										<<set _i to 26>>
-									<<case "Black Wolf">>
-										<<set _npc to "Black Wolf">>
-										<<set _i to 21>>
-								<</switch>>
-								<<relationshipmodicon>>
-							<</if>>
-							<<print _loveInterestcn[_k]>>
-							<hr>
-							<<if _k is 0>>
-								/
-							<<else>>
-								<<link "⬅">>
-									<<set _temp to $loveInterestList[_k-1]>>
-									<<set $loveInterestList[_k-1] to $loveInterestList[_k]>>
-									<<set $loveInterestList[_k] to _temp>>
-									<<replace #LoveInterestList>>
-										<<LoveInterestList>>
-									<</replace>>
-								<</link>>
-							<</if>>
-							<hr>
-							<<link "⬇">>
-								<<set $loveInterestList.delete($loveInterestList[_k])>>
-								<<replace #LoveInterestList>>
-									<<LoveInterestList>>
-								<</replace>>
-								<<replace #potentialLoveInterestList>>
-									<<potentialLoveInterestList>>
-								<</replace>>
-							<</link>>
-						</div>
-					<</capture>>
-				<</for>>
+		<<run $loveInterestList.forEach((x)=>_loveInterestcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
+		<<if $dragMode>>
+			<div id="LoveList" ondrop="dropLove(event)" ondragover="allowDrop(event)">
+				<<more_love_interest_Love_UI>>
 			</div>
 		<<else>>
-			<div><span class="black"><i>你还没有选择恋人。</i></span></div>
+			<<more_love_interest_Love_UI>>
 		<</if>>
 	</span>
 <</widget>>
-
 <<widget "potentialLoveInterestList">>
 	<span class="no-numberify">
 		<<set _potentialLoveInterestListcn to []>>
-		<<run _potentialLoveInterests.forEach((x)=>_potentialLoveInterestListcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰")))>>
-		<span class="green">非恋人</span><br>
-		<<if $loveInterestList.length lt _potentialLoveInterests.length>>
-			<div class="moreLoveInterests">
-				<<for _j to 0; _j lt _potentialLoveInterests.length; _j++>>
-					<<if !$loveInterestList.includes(_potentialLoveInterests[_j])>>
-						<<capture _j>>
-							<div class="item">
-								<<if hasNPCAvatarsModSFInfo()>>
-									<<switch _potentialLoveInterests[_j]>>
-										<<case "Robin">>
-											<<set _i to 16>>
-											<<RobinOpinionIcon>>
-										<<case "Kylar">>
-											<<set _i to 10>>
-											<<KylarOpinionIcon>>
-										<<case "Whitney">>
-											<<set _i to 19>>
-											<<WhitneyOpinionIcon>>
-										<<case "Sydney">>
-											<<set _i to 28>>
-											<<SydneyOpinionIcon>>
-										<<case "Avery">>
-											<<set _i to 0>>
-											<<AveryOpinionIcon>>
-										<<case "Alex">>
-											<<set _i to 25>>
-											<<AlexOpinionIcon>>
-										<<case "Eden">>
-											<<set _i to 6>>
-											<<EdenOpinionIcon>>
-										<<case "Great Hawk">>
-											<<set _i to 26>>
-											<<GreatHawkOpinionIcon>>
-										<<case "Black Wolf">>
-											<<set _i to 21>>
-											<<BlackWolfOpinionIcon>>
-									<</switch>>
-								<<elseif hasNPCAvatarsModInfo()>>
-									<<switch _potentialLoveInterests[_j]>>
-										<<case "Robin">>
-											<<set _npc to "Robin">>
-											<<set _i to 16>>
-										<<case "Kylar">>
-											<<set _npc to "Kylar">>
-											<<set _i to 10>>
-										<<case "Whitney">>
-											<<set _npc to "Whitney">>
-											<<set _i to 19>>
-										<<case "Sydney">>
-											<<set _npc to "Sydney">>
-											<<set _i to 28>>
-										<<case "Avery">>
-											<<set _npc to "Avery">>
-											<<set _i to 0>>
-										<<case "Alex">>
-											<<set _npc to "Alex">>
-											<<set _i to 25>>
-										<<case "Eden">>
-											<<set _npc to "Eden">>
-											<<set _i to 6>>
-										<<case "Great Hawk">>
-											<<set _npc to "Great Hawk">>
-											<<set _i to 26>>
-										<<case "Black Wolf">>
-											<<set _npc to "Black Wolf">>
-											<<set _i to 21>>
-									<</switch>>
-									<<relationshipmodicon>>
-								<</if>>
-								<<print _potentialLoveInterestListcn[_j]>>
-								<hr>
-								<<link "⬆">>
-									<<set $loveInterestList.pushUnique(_potentialLoveInterests[_j])>>
-									<<replace #LoveInterestList>>
-										<<LoveInterestList>>
-									<</replace>>
-									<<replace #potentialLoveInterestList>>
-										<<potentialLoveInterestList>>
-									<</replace>>
-								<</link>>
-							</div>
-						<</capture>>
-					<</if>>
-				<</for>>
+		<<run _potentialLoveInterests.forEach((x)=>_potentialLoveInterestListcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
+		<<if $dragMode>>
+			<div id="NonLoveList" ondrop="dropNonLove(event)" ondragover="allowDrop(event)">
+				<<more_love_interest_Non_Love_UI>>
 			</div>
 		<<else>>
-			<div><span class="fade-in"><span class="moreLoveInterests-blinking"><i>大家都是你的翅膀！</i></span></span></div>
+			<<more_love_interest_Non_Love_UI>>
 		<</if>>
-		<<script>>
-		$(document).one(':passageend', function(ev) {
-			const targets = [ ...document.getElementsByClassName('unconscious'), ...document.getElementsByClassName('fade-in') ];
-			let delay = 1500;
-			targets.forEach(ele => {
-				if (ele instanceof HTMLElement) {
-					/* Element is prepared and ready to be unhidden, leave a 1.5 timeout per iteration */
-					setTimeout(() => {
-						ele.hidden = false;
-					}, delay);
-					delay += 1500;
-				}
-			});
-		});
-		<</script>>
 	</span>
 <</widget>>
 
-/* 每次与恋人列表交互后，输出各栏位恋人 */
+<!-- 每次与恋人列表交互后，更新恋人栏位 -->
+<<widget "UpdateLoveInterestList">>
+	<<replace #LoveInterestList>>
+		<<LoveInterestList>>
+	<</replace>>
+<</widget>>
+<<widget "UpdatePotentialLoveInterestList">>
+	<<replace #potentialLoveInterestList>>
+		<<potentialLoveInterestList>>
+	<</replace>>
+<</widget>>
+
+<!-- 每次与恋人列表交互后，输出各栏位恋人 -->
 <<widget "moreLoveInterestConfirm">>
+	<<if !hasRemyLoveModInfo() and $loveInterestList.includes("Remy")>>
+		<<set $loveInterestList.delete("Remy")>>
+	<</if>>
 	<<set $loveInterest to {
 		primary: $loveInterestList[0] is undefined ? "None" : $loveInterestList[0],
 		secondary: $loveInterestList[1] is undefined ? "None" : $loveInterestList[1],
@@ -334,6 +179,7 @@
 		senary: $loveInterestList[5] is undefined ? "None" : $loveInterestList[5],
 		septenary: $loveInterestList[6] is undefined ? "None" : $loveInterestList[6],
 		octonary: $loveInterestList[7] is undefined ? "None" : $loveInterestList[7],
-		nonary: $loveInterestList[8] is undefined ? "None" : $loveInterestList[8]
+		nonary: $loveInterestList[8] is undefined ? "None" : $loveInterestList[8],
+		decimal: $loveInterestList[9] is undefined ? "None" : $loveInterestList[9],
 	}>>
 <</widget>>
