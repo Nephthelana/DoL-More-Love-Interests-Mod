@@ -101,12 +101,12 @@
 		2.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下。<br>
 		3.写着玩的，不要二传。
 	</span></mouse> |
-	<<if hasNPCAvatarsModInfo() or hasNPCAvatarsModSFInfo()>>
+	<<if hasNPCAvatarsModInfo() or hasNPCAvatarsModSFInfo()>><!-- 加载社交栏NPC小头像模组时显示图像说明 -->
 		<span class="lewd">❤️</span><mouse class="tooltip linkBlue">图像说明<span>
 			您已使用NPC头像增添模组。游戏作者并未提供各位角色的具体形象，头像为模组二次创作，仅供爱好者交流，请勿将其当作官方形象</span>
 		</mouse> |
 	<</if>><br>
-	🔘
+	🔘<!-- 选项模式/拖拽模式的设置 -->
 	<span class="no-numberify">
 		<<if $dragMode>>
 			<<link [[拖拽模式|Attitudes]]>><<set $dragMode to undefined>><</link>>
@@ -115,23 +115,20 @@
 		<</if>>
 	</span>
 	<mouse class="tooltip linkBlue">(?)<span>
-		点击以调整恋人列表的操作模式<br>
-		选项模式：通过点击箭头调整恋人列表<br>
-		拖拽模式：通过拖拽NPC的名称至对应区域来调整恋人列表(暂不支持调整恋人次序)<br>
-	</span></mouse>
-	<br>
+		点击以调整<i>恋人</i>列表的操作模式<br>
+		选项模式：通过点击箭头调整<i>恋人</i>列表<br>
+		拖拽模式：通过拖拽NPC所在的方框来将NPC加入或移出<i>恋人</i>列表，或将<i>恋人</i>列表中的NPC次序与其他恋人NPC进行调换<br>
+	</span></mouse><br>
 <</widget>>
 
 <!-- 交互UI -->
 <<widget "LoveInterestList">>
 	<span class="no-numberify">
-		<!-- 将设定好的恋人列表填充入恋人栏中 -->
-		<<moreLoveInterestConfirm>>
-		<!-- 生成NPC的中文名 -->
-		<<set _loveInterestcn to []>>
+		<<moreLoveInterestConfirm>><!-- 每次与恋人列表交互后，输出各栏位恋人 -->
+		<<set _loveInterestcn to []>><!-- 生成NPC的中文名 -->
 		<<run $loveInterestList.forEach((x)=>_loveInterestcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
 		<<if $dragMode>>
-			<div id="LoveList" ondrop="dropLove(event)" ondragover="allowDrop(event)">
+			<div id="LoveList" ondrop="dropLoveMLIM(event)" ondragover="allowDropMLIM(event)">
 				<<more_love_interest_Love_UI>>
 			</div>
 		<<else>>
@@ -144,7 +141,7 @@
 		<<set _potentialLoveInterestListcn to []>>
 		<<run _potentialLoveInterests.forEach((x)=>_potentialLoveInterestListcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
 		<<if $dragMode>>
-			<div id="NonLoveList" ondrop="dropNonLove(event)" ondragover="allowDrop(event)">
+			<div id="NonLoveList" ondrop="dropNonLoveMLIM(event)" ondragover="allowDropMLIM(event)">
 				<<more_love_interest_Non_Love_UI>>
 			</div>
 		<<else>>

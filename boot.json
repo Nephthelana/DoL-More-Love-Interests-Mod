@@ -1,14 +1,16 @@
 {
   "name": "More Love Interests Mod",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "styleFileList": [
     "module/css/moreLoveInterests.css"
   ],
   "scriptFileList": [
-    "game/More_Love_Interest_Mod_Collab.js"
+    "game/More_Love_Interest_Mod_Collab.js",
+    "game/More_Love_Interest_Mod_Drag.js"
   ],
   "tweeFileList": [
-    "game/more_love_interest_widget.twee",
+    "game/more_love_interest_main.twee",
+    "game/more_love_interest_box.twee",
     "game/more_love_interest_icon.twee"
   ],
   "imgFileList": [],

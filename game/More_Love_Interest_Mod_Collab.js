@@ -26,34 +26,3 @@ function hasRemyLoveModInfo() {
     return false;
 }
 window.hasRemyLoveModInfo = hasRemyLoveModInfo;
-
-//Drag
-function allowDrop(ev) {
-	ev.preventDefault();
-}
-window.allowDrop = allowDrop;
-
-function drag(ev) {
-	ev.dataTransfer.setData("Text",ev.target.id);
-}
-window.drag = drag;
-
-function dropLove(ev) {
-	ev.preventDefault();
-	var data=ev.dataTransfer.getData("Text");
-	if (T.potentialLoveInterests.includes(data)) {
-		V.loveInterestList.pushUnique(data);
-		Wikifier.wikifyEval("<<UpdateLoveInterestList>>");
-		Wikifier.wikifyEval("<<UpdatePotentialLoveInterestList>>");
-	}
-}
-window.dropLove = dropLove;
-
-function dropNonLove(ev) {
-	ev.preventDefault();
-	var data=ev.dataTransfer.getData("Text");
-	V.loveInterestList.delete(data);
-	Wikifier.wikifyEval("<<UpdateLoveInterestList>>");
-	Wikifier.wikifyEval("<<UpdatePotentialLoveInterestList>>");
-}
-window.dropNonLove = dropNonLove;

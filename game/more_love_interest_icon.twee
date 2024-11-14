@@ -1,4 +1,4 @@
-:: More Love Interest [widget]
+:: More Love Interest Icon [widget]
 <!-- NPC小头像图标 -->
 <<widget "more_love_interest_Love_icon">>
 	<<if hasNPCAvatarsModSFInfo()>>
@@ -70,6 +70,7 @@
 		<<relationshipmodicon>>
 	<</if>>
 <</widget>>
+
 <<widget "more_love_interest_Non_Love_icon">>
 	<<if hasNPCAvatarsModSFInfo()>>
 		<<switch _potentialLoveInterests[_j]>>
@@ -139,95 +140,4 @@
 		<</switch>>
 		<<relationshipmodicon>>
 	<</if>>
-<</widget>>
-
-<<widget "more_love_interest_Love_UI">>
-	<span class="lewd">恋人</span><br>
-	<<if $loveInterestList.length gt 0>>
-		<div class="moreLoveInterests">
-			<<for _k to 0; _k lt $loveInterestList.length; _k++>>
-				<<capture _k>>
-					<div class="item">
-						<<more_love_interest_Love_icon>>
-						<<if $dragMode>>
-							<div @id="$loveInterestList[_k]" draggable="true" ondragstart="drag(event)">
-								<<print _loveInterestcn[_k]>>
-							</div>
-						<<else>>
-							<<print _loveInterestcn[_k]>>
-						<</if>>
-						<hr>
-						<<if _k is 0>>
-							/
-						<<else>>
-							<<link "⬅">>
-								<<set _temp to $loveInterestList[_k-1]>>
-								<<set $loveInterestList[_k-1] to $loveInterestList[_k]>>
-								<<set $loveInterestList[_k] to _temp>>
-								<<UpdateLoveInterestList>>
-							<</link>>
-						<</if>>
-						<<if $dragMode isnot true>>
-							<hr>
-							<<link "⬇">>
-								<<set $loveInterestList.delete($loveInterestList[_k])>>
-								<<UpdateLoveInterestList>>
-								<<UpdatePotentialLoveInterestList>>
-							<</link>>
-						<</if>>
-					</div>
-				<</capture>>
-			<</for>>
-		</div>
-	<<else>>
-		<div><span class="black"><i>你还没有选择恋人。</i></span></div>
-	<</if>>
-<</widget>>
-<<widget "more_love_interest_Non_Love_UI">>
-	<span class="green">非恋人</span><br>
-	<<if $loveInterestList.length lt _potentialLoveInterests.length>>
-		<div class="moreLoveInterests">
-			<<for _j to 0; _j lt _potentialLoveInterests.length; _j++>>
-				<<if !$loveInterestList.includes(_potentialLoveInterests[_j])>>
-					<<capture _j>>
-						<div class="item">
-							<<more_love_interest_Non_Love_icon>>
-							<<if $dragMode>>
-								<div @id="_potentialLoveInterests[_j]" draggable="true" ondragstart="drag(event)">
-									<<print _potentialLoveInterestListcn[_j]>>
-								</div>
-							<<else>>
-								<<print _potentialLoveInterestListcn[_j]>>
-							<</if>>
-							<<if $dragMode isnot true>>
-								<hr>
-								<<link "⬆">>
-									<<set $loveInterestList.pushUnique(_potentialLoveInterests[_j])>>
-									<<UpdateLoveInterestList>>
-									<<UpdatePotentialLoveInterestList>>
-								<</link>>
-							<</if>>
-						</div>
-					<</capture>>
-				<</if>>
-			<</for>>
-		</div>
-	<<else>>
-		<div><span class="fade-in"><span class="moreLoveInterests-blinking"><i>大家都是你的翅膀！</i></span></span></div>
-	<</if>>
-	<<script>>
-		$(document).one(':passageend', function(ev) {
-			const targets = [ ...document.getElementsByClassName('unconscious'), ...document.getElementsByClassName('fade-in') ];
-			let delay = 1500;
-			targets.forEach(ele => {
-				if (ele instanceof HTMLElement) {
-					/* Element is prepared and ready to be unhidden, leave a 1.5 timeout per iteration */
-					setTimeout(() => {
-						ele.hidden = false;
-					}, delay);
-					delay += 1500;
-				}
-			});
-		});
-	<</script>>
 <</widget>>
