@@ -109,9 +109,13 @@
 	🔘<!-- 选项模式/拖拽模式的设置 -->
 	<span class="no-numberify">
 		<<if $dragMode>>
-			<<link [[拖拽模式|Attitudes]]>><<set $dragMode to undefined>><</link>>
+			<<link [[拖拽模式|$passage]]>>
+				<<set $dragMode to undefined>>
+			<</link>>
 		<<else>>
-			<<link [[选项模式|Attitudes]]>><<set $dragMode to true>><</link>>
+			<<link [[选项模式|$passage]]>>
+				<<set $dragMode to true>>
+			<</link>>
 		<</if>>
 	</span>
 	<mouse class="tooltip linkBlue">(?)<span>

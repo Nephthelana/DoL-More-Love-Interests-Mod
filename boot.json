@@ -9,9 +9,9 @@
     "game/More_Love_Interest_Mod_Drag.js"
   ],
   "tweeFileList": [
-    "game/more_love_interest_main.twee",
     "game/more_love_interest_box.twee",
-    "game/more_love_interest_icon.twee"
+    "game/more_love_interest_icon.twee",
+    "game/more_love_interest_main.twee"
   ],
   "imgFileList": [],
   "addonPlugin": [
