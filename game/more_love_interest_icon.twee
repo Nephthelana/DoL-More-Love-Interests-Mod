@@ -1,143 +1,65 @@
 :: More Love Interest Icon [widget]
 <!-- NPC小头像图标 -->
 <<widget "more_love_interest_Love_icon">>
-	<<if hasNPCAvatarsModSFInfo()>>
+	<<if window.modUtils.getMod('NPC Avatars Mod (SF)')>>
+		<<set _i to $NPCNameList.indexOf($loveInterestList[_k])>>
 		<<switch $loveInterestList[_k]>>
 			<<case "Robin">>
-				<<set _i to 16>>
 				<<RobinOpinionIcon>>
 			<<case "Kylar">>
-				<<set _i to 10>>
 				<<KylarOpinionIcon>>
 			<<case "Whitney">>
-				<<set _i to 19>>
 				<<WhitneyOpinionIcon>>
 			<<case "Sydney">>
-				<<set _i to 28>>
 				<<SydneyOpinionIcon>>
 			<<case "Avery">>
-				<<set _i to 0>>
 				<<AveryOpinionIcon>>
 			<<case "Alex">>
-				<<set _i to 25>>
 				<<AlexOpinionIcon>>
 			<<case "Eden">>
-				<<set _i to 6>>
 				<<EdenOpinionIcon>>
 			<<case "Great Hawk">>
-				<<set _i to 26>>
 				<<GreatHawkOpinionIcon>>
 			<<case "Black Wolf">>
-				<<set _i to 21>>
 				<<BlackWolfOpinionIcon>>
 			<<case "Remy">>
-				<<set _i to 25>>
 				<<RemyOpinionIcon>>
 		<</switch>>
-	<<elseif hasNPCAvatarsModInfo()>>
-		<<switch $loveInterestList[_k]>>
-			<<case "Robin">>
-				<<set _npc to "Robin">>
-				<<set _i to 16>>
-			<<case "Kylar">>
-				<<set _npc to "Kylar">>
-				<<set _i to 10>>
-			<<case "Whitney">>
-				<<set _npc to "Whitney">>
-				<<set _i to 19>>
-			<<case "Sydney">>
-				<<set _npc to "Sydney">>
-				<<set _i to 28>>
-			<<case "Avery">>
-				<<set _npc to "Avery">>
-				<<set _i to 0>>
-			<<case "Alex">>
-				<<set _npc to "Alex">>
-				<<set _i to 25>>
-			<<case "Eden">>
-				<<set _npc to "Eden">>
-				<<set _i to 6>>
-			<<case "Great Hawk">>
-				<<set _npc to "Great Hawk">>
-				<<set _i to 26>>
-			<<case "Black Wolf">>
-				<<set _npc to "Black Wolf">>
-				<<set _i to 21>>
-			<<case "Remy">>
-				<<set _npc to "Remy">>
-				<<set _i to 25>>
-		<</switch>>
+	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
+		<<set _npc to $loveInterestList[_k]>>
+		<<set _i to $NPCNameList.indexOf($loveInterestList[_k])>>
 		<<relationshipmodicon>>
 	<</if>>
 <</widget>>
 
 <<widget "more_love_interest_Non_Love_icon">>
-	<<if hasNPCAvatarsModSFInfo()>>
+	<<if window.modUtils.getMod('NPC Avatars Mod (SF)')>>
+		<<set _i to $NPCNameList.indexOf(_potentialLoveInterests[_j])>>
 		<<switch _potentialLoveInterests[_j]>>
 			<<case "Robin">>
-				<<set _i to 16>>
 				<<RobinOpinionIcon>>
 			<<case "Kylar">>
-				<<set _i to 10>>
 				<<KylarOpinionIcon>>
 			<<case "Whitney">>
-				<<set _i to 19>>
 				<<WhitneyOpinionIcon>>
 			<<case "Sydney">>
-				<<set _i to 28>>
 				<<SydneyOpinionIcon>>
 			<<case "Avery">>
-				<<set _i to 0>>
 				<<AveryOpinionIcon>>
 			<<case "Alex">>
-				<<set _i to 25>>
 				<<AlexOpinionIcon>>
 			<<case "Eden">>
-				<<set _i to 6>>
 				<<EdenOpinionIcon>>
 			<<case "Great Hawk">>
-				<<set _i to 26>>
 				<<GreatHawkOpinionIcon>>
 			<<case "Black Wolf">>
-				<<set _i to 21>>
 				<<BlackWolfOpinionIcon>>
 			<<case "Remy">>
-				<<set _i to 25>>
 				<<RemyOpinionIcon>>
 		<</switch>>
-	<<elseif hasNPCAvatarsModInfo()>>
-		<<switch _potentialLoveInterests[_j]>>
-			<<case "Robin">>
-				<<set _npc to "Robin">>
-				<<set _i to 16>>
-			<<case "Kylar">>
-				<<set _npc to "Kylar">>
-				<<set _i to 10>>
-			<<case "Whitney">>
-				<<set _npc to "Whitney">>
-				<<set _i to 19>>
-			<<case "Sydney">>
-				<<set _npc to "Sydney">>
-				<<set _i to 28>>
-			<<case "Avery">>
-				<<set _npc to "Avery">>
-				<<set _i to 0>>
-			<<case "Alex">>
-				<<set _npc to "Alex">>
-				<<set _i to 25>>
-			<<case "Eden">>
-				<<set _npc to "Eden">>
-				<<set _i to 6>>
-			<<case "Great Hawk">>
-				<<set _npc to "Great Hawk">>
-				<<set _i to 26>>
-			<<case "Black Wolf">>
-				<<set _npc to "Black Wolf">>
-				<<set _i to 21>>
-			<<case "Remy">>
-				<<set _npc to "Remy">>
-				<<set _i to 25>>
-		<</switch>>
+	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
+		<<set _npc to _potentialLoveInterests[_j]>>
+		<<set _i to $NPCNameList.indexOf(_potentialLoveInterests[_j])>>
 		<<relationshipmodicon>>
 	<</if>>
 <</widget>>

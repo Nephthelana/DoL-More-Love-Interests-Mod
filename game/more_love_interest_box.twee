@@ -20,22 +20,26 @@
 							<<more_love_interest_Love_icon>>
 							<<print _loveInterestcn[_k]>>
 							<hr>
-							<<if _k is 0>>
-								/
-							<<else>>
-								<<link "⬅">>
-									<<set _temp to $loveInterestList[_k-1]>>
-									<<set $loveInterestList[_k-1] to $loveInterestList[_k]>>
-									<<set $loveInterestList[_k] to _temp>>
-									<<UpdateLoveInterestList>>
-								<</link>>
-							<</if>>
+							<div class="MLIMLinks">
+								<<if _k is 0>>
+									/
+								<<else>>
+									<<link "⬅">>
+										<<set _temp to $loveInterestList[_k-1]>>
+										<<set $loveInterestList[_k-1] to $loveInterestList[_k]>>
+										<<set $loveInterestList[_k] to _temp>>
+										<<UpdateLoveInterestList>>
+									<</link>>
+								<</if>>
+							</div>
 							<hr>
-							<<link "⬇">>
-								<<set $loveInterestList.delete($loveInterestList[_k])>>
-								<<UpdateLoveInterestList>>
-								<<UpdatePotentialLoveInterestList>>
-							<</link>>
+							<div class="MLIMLinks">
+								<<link "⬇">>
+									<<set $loveInterestList.delete($loveInterestList[_k])>>
+									<<UpdateLoveInterestList>>
+									<<UpdatePotentialLoveInterestList>>
+								<</link>>
+							</div>
 						</div>
 					<</if>>
 				<</capture>>
@@ -67,11 +71,13 @@
 								<<more_love_interest_Non_Love_icon>>
 								<<print _potentialLoveInterestListcn[_j]>>
 								<hr>
-								<<link "⬆">>
-									<<set $loveInterestList.pushUnique(_potentialLoveInterests[_j])>>
-									<<UpdateLoveInterestList>>
-									<<UpdatePotentialLoveInterestList>>
-								<</link>>
+								<div class="MLIMLinks">
+									<<link "⬆">>
+										<<set $loveInterestList.pushUnique(_potentialLoveInterests[_j])>>
+										<<UpdateLoveInterestList>>
+										<<UpdatePotentialLoveInterestList>>
+									<</link>>
+								</div>
 							</div>
 						<</if>>
 					<</capture>>

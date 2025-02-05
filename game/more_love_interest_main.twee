@@ -27,6 +27,26 @@
 		<<run $loveInterest.tertiary isnot "None" ? $loveInterestList.pushUnique($loveInterest.tertiary) : null>>
 	<</if>>
 	<!-- 原版生成潜在恋爱兴趣的数组 -->
+	<<potentialLoveInterestsList>>
+	<!-- 模组信息 -->
+	<<moreLoveInterestHint>>
+	<!-- 交互UI -->
+	<<if _potentialLoveInterests.length lte 0>>
+		<span class="black"><i>你还没有对任何人产生爱慕。</i></span>
+	<<else>>
+		<span id="LoveInterestList">
+			<<LoveInterestList>>
+		</span>
+		<span id="potentialLoveInterestList">
+			<<potentialLoveInterestList>>
+		</span>
+	<</if>>
+	<!-- 设为已经显示了“你对多个恋人持开放态度”的情况 -->
+	<<set $loveInterestAwareMessage to true>>
+
+<</widget>>
+
+<<widget "potentialLoveInterestsList">>
 	<<set _potentialLoveInterests = []>>
 	<<if $robinromance is 1>>
 		<<run _potentialLoveInterests.push("Robin")>>
@@ -62,25 +82,9 @@
 		<<run _potentialLoveInterests.push("Alex")>>
 	<</if>>
 	<!-- 雷米恋爱模组 -->
-	<<if hasRemyLoveModInfo() and $remyromance is 1>>
+	<<if window.modUtils.getMod('Remy Love Mod') and $remyromance is 1>>
 	   	<<run _potentialLoveInterests.push("Remy")>>
 	<</if>>
-	<!-- 模组信息 -->
-	<<moreLoveInterestHint>>
-	<!-- 交互UI -->
-	<<if _potentialLoveInterests.length lte 0>>
-		<span class="black"><i>你还没有对任何人产生爱慕。</i></span>
-	<<else>>
-		<span id="LoveInterestList">
-			<<LoveInterestList>>
-		</span>
-		<span id="potentialLoveInterestList">
-			<<potentialLoveInterestList>>
-		</span>
-	<</if>>
-	<!-- 设为已经显示了“你对多个恋人持开放态度”的情况 -->
-	<<set $loveInterestAwareMessage to true>>
-
 <</widget>>
 
 <!-- 模组信息 -->
@@ -101,7 +105,7 @@
 		2.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下。<br>
 		3.写着玩的，不要二传。
 	</span></mouse> |
-	<<if hasNPCAvatarsModInfo() or hasNPCAvatarsModSFInfo()>><!-- 加载社交栏NPC小头像模组时显示图像说明 -->
+	<<if window.modUtils.getMod('NPC Avatars Mod') or window.modUtils.getMod('NPC Avatars Mod (SF)')>><!-- 加载社交栏NPC小头像模组时显示图像说明 -->
 		<span class="lewd">❤️</span><mouse class="tooltip linkBlue">图像说明<span>
 			您已使用NPC头像增添模组。游戏作者并未提供各位角色的具体形象，头像为模组二次创作，仅供爱好者交流，请勿将其当作官方形象</span>
 		</mouse> |
@@ -123,6 +127,10 @@
 		选项模式：通过点击箭头调整<i>恋人</i>列表<br>
 		拖拽模式：通过拖拽NPC所在的方框来将NPC加入或移出<i>恋人</i>列表，或将<i>恋人</i>列表中的NPC次序与其他恋人NPC进行调换<br>
 	</span></mouse><br>
+	🍴<!-- v0.5.3.x新增的烹饪系统为li设定了喜爱的食物种类 -->
+	<span class="no-numberify">
+		<<link [[查看NPC喜爱的食物|Food Preference]]>><</link>><br>
+	</span>
 <</widget>>
 
 <!-- 交互UI -->
@@ -168,7 +176,7 @@
 
 <!-- 每次与恋人列表交互后，输出各栏位恋人 -->
 <<widget "moreLoveInterestConfirm">>
-	<<if !hasRemyLoveModInfo() and $loveInterestList.includes("Remy")>>
+	<<if !window.modUtils.getMod('Remy Love Mod') and $loveInterestList.includes("Remy")>>
 		<<set $loveInterestList.delete("Remy")>>
 	<</if>>
 	<<set $loveInterest to {

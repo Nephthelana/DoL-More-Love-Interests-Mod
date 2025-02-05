@@ -31,3 +31,15 @@
 	margin: 2px;
 	width: 100%;
 }
+
+/* 新版本的link会自带额外的padding，只能这样手动来使链接与文字保持在同一行QAQ */
+.MLIMLinks {
+	padding: 0.1em 0.1em;
+}
+
+.itemFood {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 40px);
+	gap: 5px;
+	padding: 0.5rem;
+}

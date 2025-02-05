@@ -1,3 +1,5 @@
+// 该部分js已不再被调用，但还是该留着
+
 // 判断是否加载了动车(Eudemonism00)的NPC头像图标增添mod
 function hasNPCAvatarsModInfo() {
     const NPCAvatarsModInfo = window.modUtils.getMod('NPC Avatars Mod');
