@@ -17,6 +17,9 @@ function dropLoveMLIM(ev) {
     var data = ev.dataTransfer.getData("Text");
 	if (T.potentialLoveInterests.includes(data)) {
 		V.loveInterestList.pushUnique(data);
+		if (V.transformationParts.traits.mateForLife !== "disabled" && V.options.mateForLifeDebuff) {
+			Wikifier.wikifyEval("<<loveInterestListCheck>>");
+		}
 		Wikifier.wikifyEval("<<UpdateLoveInterestList>>");
 		Wikifier.wikifyEval("<<UpdatePotentialLoveInterestList>>");
 	}
@@ -28,6 +31,9 @@ function dropNonLoveMLIM(ev) {
 	ev.preventDefault();
     var data = ev.dataTransfer.getData("Text");
 	V.loveInterestList.delete(data);
+	if (V.transformationParts.traits.mateForLife !== "disabled" && V.options.mateForLifeDebuff) {
+		Wikifier.wikifyEval("<<loveInterestListCheck>>");
+	}
 	Wikifier.wikifyEval("<<UpdateLoveInterestList>>");
 	Wikifier.wikifyEval("<<UpdatePotentialLoveInterestList>>");
 }

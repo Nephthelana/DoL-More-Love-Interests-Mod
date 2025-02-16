@@ -36,6 +36,9 @@
 							<div class="MLIMLinks">
 								<<link "⬇">>
 									<<set $loveInterestList.delete($loveInterestList[_k])>>
+									<<if $transformationParts.traits.mateForLife isnot "disabled" and $options.mateForLifeDebuff>>
+										<<loveInterestListCheck>>
+									<</if>>
 									<<UpdateLoveInterestList>>
 									<<UpdatePotentialLoveInterestList>>
 								<</link>>
@@ -74,6 +77,9 @@
 								<div class="MLIMLinks">
 									<<link "⬆">>
 										<<set $loveInterestList.pushUnique(_potentialLoveInterests[_j])>>
+										<<if $transformationParts.traits.mateForLife isnot "disabled" and $options.mateForLifeDebuff>>
+											<<loveInterestListCheck>>
+										<</if>>
 										<<UpdateLoveInterestList>>
 										<<UpdatePotentialLoveInterestList>>
 									<</link>>

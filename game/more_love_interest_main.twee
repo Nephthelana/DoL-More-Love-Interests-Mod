@@ -28,6 +28,8 @@
 	<</if>>
 	<!-- 原版生成潜在恋爱兴趣的数组 -->
 	<<potentialLoveInterestsList>>
+	<!-- 记录当前恋人列表，为终生伴侣Debuff提供参数 -->
+	<<run T.loveInterestListTemp = [...V.loveInterestList]>>
 	<!-- 模组信息 -->
 	<<moreLoveInterestHint>>
 	<!-- 交互UI -->
@@ -98,7 +100,7 @@
 		本模组对于原版设定恋人的机制改动如下：<br>
 		1.删除主要恋人/次要恋人选项。恋人数量不受<i>意识</i>等级影响，上限为10；<br>
 		2.目前只能设定原版9位li，以及雷米恋爱模组新增的雷米li，共10个NPC为恋人；<br>
-		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且更换恋人不会导致该特质的负面影响。
+		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且未开启相关设置时，更换恋人不会导致该特质的负面影响。
 	</span></mouse> |
 	<span class="gold">！</span><mouse class="tooltip linkBlue">注意事项<span>
 		1.本模组适配0.5.0.x及以上的版本，更早的游戏版本未经测试；<br>
@@ -111,26 +113,31 @@
 		</mouse> |
 	<</if>><br>
 	🔘<!-- 选项模式/拖拽模式的设置 -->
-	<span class="no-numberify">
-		<<if $dragMode>>
-			<<link [[拖拽模式|$passage]]>>
-				<<set $dragMode to undefined>>
-			<</link>>
-		<<else>>
-			<<link [[选项模式|$passage]]>>
-				<<set $dragMode to true>>
-			<</link>>
-		<</if>>
+	<span class="no-numberify" id="dragModeSwitch">
+		<<dragModeSwitch>>
 	</span>
 	<mouse class="tooltip linkBlue">(?)<span>
 		点击以调整<i>恋人</i>列表的操作模式<br>
 		选项模式：通过点击箭头调整<i>恋人</i>列表<br>
 		拖拽模式：通过拖拽NPC所在的方框来将NPC加入或移出<i>恋人</i>列表，或将<i>恋人</i>列表中的NPC次序与其他恋人NPC进行调换<br>
 	</span></mouse><br>
+	<!-- 终生伴侣特质负面效果 -->
+	<label><<checkbox "$options.mateForLifeDebuff" false true autocheck>> 终生伴侣Debuff</label><mouse class="tooltip linkBlue">(?)<span>开启后，移除恋人会像原版<a @style="_style">终生伴侣</a>特质的作用一样，增加压力和创伤</span></mouse><br>
 	🍴<!-- v0.5.3.x新增的烹饪系统为li设定了喜爱的食物种类 -->
 	<span class="no-numberify">
 		<<link [[查看NPC喜爱的食物|Food Preference]]>><</link>><br>
 	</span>
+<</widget>>
+
+<<widget "dragModeSwitch">>
+	<<link `$dragMode ? '拖拽模式' : '选项模式'`>>
+		<<set $dragMode to $dragMode ? undefined : true>>
+		<<replace #dragModeSwitch>>
+			<<dragModeSwitch>>
+		<</replace>>
+		<<UpdateLoveInterestList>>
+		<<UpdatePotentialLoveInterestList>>
+	<</link>>
 <</widget>>
 
 <!-- 交互UI -->
@@ -160,6 +167,9 @@
 			<<more_love_interest_Non_Love_UI>>
 		<</if>>
 	</span>
+	<<if $LIChanged>>
+		<span class="red">更换伴侣违背了你终身相伴的誓言，这会对你的精神造成损伤。</span>
+	<</if>>
 <</widget>>
 
 <!-- 每次与恋人列表交互后，更新恋人栏位 -->
@@ -191,4 +201,13 @@
 		nonary: $loveInterestList[8] is undefined ? "None" : $loveInterestList[8],
 		decimal: $loveInterestList[9] is undefined ? "None" : $loveInterestList[9],
 	}>>
+<</widget>>
+
+<<widget "loveInterestListCheck">>
+	<<set $LIChanged to undefined>>
+	<<for _lover range _loveInterestListTemp>>
+		<<if !$loveInterestList.includes(_lover)>>
+			<<set $LIChanged to true>>
+		<</if>>
+	<</for>>
 <</widget>>

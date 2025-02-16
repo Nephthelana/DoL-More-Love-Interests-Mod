@@ -1,6 +1,6 @@
 .moreLoveInterests {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 5.5em);
+	grid-template-columns: repeat(auto-fill, 5em);
 	gap: 5px;
 	padding: 0.5rem;
 }
