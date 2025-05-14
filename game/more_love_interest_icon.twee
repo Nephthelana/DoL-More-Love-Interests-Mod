@@ -3,63 +3,71 @@
 <<widget "more_love_interest_Love_icon">>
 	<<if window.modUtils.getMod('NPC Avatars Mod (SF)')>>
 		<<set _i to $NPCNameList.indexOf($loveInterestList[_k])>>
-		<<switch $loveInterestList[_k]>>
-			<<case "Robin">>
-				<<RobinOpinionIcon>>
-			<<case "Kylar">>
-				<<KylarOpinionIcon>>
-			<<case "Whitney">>
-				<<WhitneyOpinionIcon>>
-			<<case "Sydney">>
-				<<SydneyOpinionIcon>>
-			<<case "Avery">>
-				<<AveryOpinionIcon>>
-			<<case "Alex">>
-				<<AlexOpinionIcon>>
-			<<case "Eden">>
-				<<EdenOpinionIcon>>
-			<<case "Great Hawk">>
-				<<GreatHawkOpinionIcon>>
-			<<case "Black Wolf">>
-				<<BlackWolfOpinionIcon>>
-			<<case "Remy">>
-				<<RemyOpinionIcon>>
-		<</switch>>
+		<div class="MLIM-icon">
+			<<switch $loveInterestList[_k]>>
+				<<case "Robin">>
+					<<RobinOpinionIcon>>
+				<<case "Kylar">>
+					<<KylarOpinionIcon>>
+				<<case "Whitney">>
+					<<WhitneyOpinionIcon>>
+				<<case "Sydney">>
+					<<SydneyOpinionIcon>>
+				<<case "Avery">>
+					<<AveryOpinionIcon>>
+				<<case "Alex">>
+					<<AlexOpinionIcon>>
+				<<case "Eden">>
+					<<EdenOpinionIcon>>
+				<<case "Great Hawk">>
+					<<GreatHawkOpinionIcon>>
+				<<case "Black Wolf">>
+					<<BlackWolfOpinionIcon>>
+				<<case "Remy">>
+					<<RemyOpinionIcon>>
+			<</switch>>
+		</div>
 	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
 		<<set _npc to $loveInterestList[_k]>>
 		<<set _i to $NPCNameList.indexOf($loveInterestList[_k])>>
-		<<relationshipmodicon>>
+		<div class="MLIM-icon">
+			<<relationshipmodicon>>
+		</div>
 	<</if>>
 <</widget>>
 
 <<widget "more_love_interest_Non_Love_icon">>
 	<<if window.modUtils.getMod('NPC Avatars Mod (SF)')>>
 		<<set _i to $NPCNameList.indexOf(_potentialLoveInterests[_j])>>
-		<<switch _potentialLoveInterests[_j]>>
-			<<case "Robin">>
-				<<RobinOpinionIcon>>
-			<<case "Kylar">>
-				<<KylarOpinionIcon>>
-			<<case "Whitney">>
-				<<WhitneyOpinionIcon>>
-			<<case "Sydney">>
-				<<SydneyOpinionIcon>>
-			<<case "Avery">>
-				<<AveryOpinionIcon>>
-			<<case "Alex">>
-				<<AlexOpinionIcon>>
-			<<case "Eden">>
-				<<EdenOpinionIcon>>
-			<<case "Great Hawk">>
-				<<GreatHawkOpinionIcon>>
-			<<case "Black Wolf">>
-				<<BlackWolfOpinionIcon>>
-			<<case "Remy">>
-				<<RemyOpinionIcon>>
-		<</switch>>
+		<div class="MLIM-icon">
+			<<switch _potentialLoveInterests[_j]>>
+				<<case "Robin">>
+					<<RobinOpinionIcon>>
+				<<case "Kylar">>
+					<<KylarOpinionIcon>>
+				<<case "Whitney">>
+					<<WhitneyOpinionIcon>>
+				<<case "Sydney">>
+					<<SydneyOpinionIcon>>
+				<<case "Avery">>
+					<<AveryOpinionIcon>>
+				<<case "Alex">>
+					<<AlexOpinionIcon>>
+				<<case "Eden">>
+					<<EdenOpinionIcon>>
+				<<case "Great Hawk">>
+					<<GreatHawkOpinionIcon>>
+				<<case "Black Wolf">>
+					<<BlackWolfOpinionIcon>>
+				<<case "Remy">>
+					<<RemyOpinionIcon>>
+			<</switch>>
+		</div>
 	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
 		<<set _npc to _potentialLoveInterests[_j]>>
 		<<set _i to $NPCNameList.indexOf(_potentialLoveInterests[_j])>>
-		<<relationshipmodicon>>
+		<div class="MLIM-icon">
+			<<relationshipmodicon>>
+		</div>
 	<</if>>
 <</widget>>

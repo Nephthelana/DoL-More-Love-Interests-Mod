@@ -91,7 +91,7 @@
 
 <!-- 模组信息 -->
 <<widget "moreLoveInterestHint">>
-	<<set _style to "background: linear-gradient(to right,#e646c6 0%, #ffffff 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">>
+	<<set _style to "background: linear-gradient(to right, #e646c6 0%, #ffffff 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">>
 	<span @style="_style">
 		更多恋人
 	</span>
@@ -112,21 +112,25 @@
 			您已使用NPC头像增添模组。游戏作者并未提供各位角色的具体形象，头像为模组二次创作，仅供爱好者交流，请勿将其当作官方形象</span>
 		</mouse> |
 	<</if>><br>
-	🔘<!-- 选项模式/拖拽模式的设置 -->
-	<span class="no-numberify" id="dragModeSwitch">
-		<<dragModeSwitch>>
-	</span>
-	<mouse class="tooltip linkBlue">(?)<span>
-		点击以调整<i>恋人</i>列表的操作模式<br>
-		选项模式：通过点击箭头调整<i>恋人</i>列表<br>
-		拖拽模式：通过拖拽NPC所在的方框来将NPC加入或移出<i>恋人</i>列表，或将<i>恋人</i>列表中的NPC次序与其他恋人NPC进行调换<br>
-	</span></mouse><br>
+	<<if _potentialLoveInterests.length gt 0>>
+		🔘<!-- 选项模式/拖拽模式的设置 -->
+		<span class="no-numberify" id="dragModeSwitch">
+			<<dragModeSwitch>>
+		</span>
+		<mouse class="tooltip linkBlue">(?)<span>
+			点击以调整<i>恋人</i>列表的操作模式<br>
+			选项模式：通过点击箭头调整<i>恋人</i>列表<br>
+			拖拽模式：通过拖拽NPC所在的方框来将NPC加入或移出<i>恋人</i>列表，或将<i>恋人</i>列表中的NPC次序与其他恋人NPC进行调换<br>
+		</span></mouse><br>
+	<</if>>
 	<!-- 终生伴侣特质负面效果 -->
 	<label><<checkbox "$options.mateForLifeDebuff" false true autocheck>> 终生伴侣Debuff</label><mouse class="tooltip linkBlue">(?)<span>开启后，移除恋人会像原版<a @style="_style">终生伴侣</a>特质的作用一样，增加压力和创伤</span></mouse><br>
-	🍴<!-- v0.5.3.x新增的烹饪系统为li设定了喜爱的食物种类 -->
-	<span class="no-numberify">
-		<<link [[查看NPC喜爱的食物|Food Preference]]>><</link>><br>
-	</span>
+	<!-- v0.5.3.x新增的烹饪系统为li设定了喜爱的食物种类 -->
+	<<if $passage is "Attitudes">>
+		🍴<span class="no-numberify">
+			<<link [[查看NPC喜爱的食物|Food Preference]]>><</link>><br>
+		</span>
+	<</if>>
 <</widget>>
 
 <<widget "dragModeSwitch">>

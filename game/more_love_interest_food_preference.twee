@@ -1,5 +1,4 @@
 :: Food Preference
-<<run initializeTooltips()>>
 <<potentialLoveInterestsList>>
 主要角色喜爱的食物一览：<br>
 *注：此处仅显示已成为恋爱兴趣的NPC（即恋人+非恋人）的食物偏好<br>
@@ -25,21 +24,26 @@
 :: Widgets Food Preference [widget]
 <<widget "foodPreference">>
 	<<print _args[0].replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")>>
-	<div class="itemFood">
+	<div class="MLIM-food">
 		<<for _food range Object.keys(setup.foodPreference).filter(a => setup.foodPreference[a].NPC.includes(_args[0]))>>
 			<<set _foodInfo to setup.plants[setup.foodPreference[_food].name]>>
 			<<capture _foodInfo>>
 				<<set _foodIngredients to "">>
 				<<for _ingredient range _foodInfo.ingredients>>
-					<<set _foodIngredients += ("<<tendingicon `setup.plants[\'" + _ingredient + "\'].icon`>>" + setup.plants[_ingredient].plural + "｜")>>
+					<<set _foodIngredients += ("<<tendingicon `setup.plants[\'" + _ingredient + "\'].icon`>>" + setup.plants[_ingredient].plural + "<br>")>>
 				<</for>>
-				<div class="item">
-					<div @tooltip="`${_foodInfo.plural}<br><br>配方：${_foodIngredients}`">
+				<div class="MLIM-item">
+					<mouse class="tooltip-image">
 						<<tendingicon `_foodInfo.icon`>>
-					</div>
+						<span>
+							_foodInfo.plural<br>
+							<div class="MLIM-divider"></div>
+							_foodIngredients
+						</span>
+					</mouse>
 					<<if $debug is 1>>
-						<hr>
-						<span class="no-numberify">
+						<div class="MLIM-divider-food"></div>
+						<span class="no-numberify MLIM-link">
 							<<link [[`+1`|Food Preference]]>><<set $plants[_foodInfo.name].amount += 1>><</link>>
 						</span>
 					<</if>>

@@ -1,8 +1,45 @@
-.moreLoveInterests {
+.MLIM {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 5em);
 	gap: 5px;
 	padding: 0.5rem;
+}
+
+.MLIM-item {
+	position: relative;
+	border: 1px solid var(--200);
+	padding: 5px;
+	text-align: center;
+}
+
+.MLIM-icon {
+	display: grid;
+	place-items: center;
+	height: 30px;
+}
+
+.MLIM-divider {
+	height: 1px;        /* 线的高度（粗细） */
+	background: linear-gradient(
+	  to right,
+	  transparent 0 5px,          /* 左端5px透明 */
+	  var(--600) 5px calc(100% - 5px), /* 中间灰色区域 */
+	  transparent calc(100% - 5px) 100% /* 右端5px透明 */
+	);
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.MLIM-divider-food {
+	height: 1px;
+	background: var(--600);
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.MLIM-link {
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 @keyframes blink {
@@ -12,34 +49,13 @@
 	100% { color: #FF6392; } 
   }
    
-.moreLoveInterests-blinking {
+.MLIM-blinking {
 	animation: blink 1.5s infinite; /* 每1.5秒闪烁一次，无限循环 */
 }
 
-.item {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-	align-items: center;
-	text-align: center;
-	border: 1px solid var(--200);
-	padding: 5px;
-}
-
-.item hr {
-	border-top: 1px solid var(--600);
-	margin: 2px;
-	width: 100%;
-}
-
-/* 新版本的link会自带额外的padding，只能这样手动来使链接与文字保持在同一行QAQ */
-.MLIMLinks {
-	padding: 0.1em 0.1em;
-}
-
-.itemFood {
+.MLIM-food {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 40px);
 	gap: 5px;
-	padding: 0.5rem;
+	padding: 5px;
 }

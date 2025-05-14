@@ -1,19 +1,19 @@
 {
   "name": "More Love Interests Mod",
-  "version": "0.1.2",
+  "version": "0.1.3.2",
   "styleFileList": [
     "module/css/moreLoveInterests.css"
   ],
   "scriptFileList": [
     "game/More_Love_Interest_Mod_Collab.js",
-    "game/foodPreference.js",
-    "game/More_Love_Interest_Mod_Drag.js"
+    "game/More_Love_Interest_Mod_Drag.js",
+    "game/foodPreference.js"
   ],
   "tweeFileList": [
+    "game/more_love_interest_main.twee",
     "game/more_love_interest_icon.twee",
-    "game/more_love_interest_food_preference.twee",
     "game/more_love_interest_box.twee",
-    "game/more_love_interest_main.twee"
+    "game/more_love_interest_food_preference.twee"
   ],
   "imgFileList": [],
   "addonPlugin": [
