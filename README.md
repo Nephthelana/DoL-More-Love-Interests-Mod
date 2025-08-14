@@ -39,6 +39,11 @@
 - 模组最新版本（v0.1.3.2）适配游戏本体v0.5.4及以上的版本。其他游戏版本请参考[下载方式](#下载方式)中的说明；
 - 卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下，因为模组并没有提供“卸载模组后删去额外设定的恋人”的功能，卸载模组后将无法操作位次靠后的恋人设定；
 - 写着玩的，不要二传。
+## 友情链接
+- [泰拉瑞亚拓展模组](https://github.com/Nephthelana/DOL-Terra-Expanding-Modd) by 苯环
+- [dom罗宾拓展模组](https://github.com/ZeroRing233/Degrees-of-Lewdity-RobinMod) by [零环零理想(ZeroRing233)](https://github.com/ZeroRing233)
+- [鹰宝宝模组](https://github.com/koooooiCarp/DOL-BabyHawk-Mod) by [鲤鱼旗(koooooiCarp)](https://github.com/koooooiCarp)
+- [日落伊甸园模组](https://github.com/LooopSpiner/In-The-Eden-After-Sunset) by [再三棘(LooopSpiner)](https://github.com/LooopSpiner)
 ## 免责声明
 - 本mod为更多恋人mod，并非本体内容。
 - 本mod完全免费游玩，严禁对本mod进行二传/用作商业盈利用途，对于商业盈利或传播导致的可能法律后果完全由使用者自行承担，与mod作者无关。
