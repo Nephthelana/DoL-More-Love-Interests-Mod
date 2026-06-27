@@ -19,6 +19,10 @@
 	<<if $loveInterest.decimal is undefined>>
 		<<set $loveInterest.decimal to "None">>
 	<</if>>
+	<!-- v0.5.6 初始化第11个恋人槽位 -->
+	<<if $loveInterest.undecimal is undefined>>
+		<<set $loveInterest.undecimal to "None">>
+	<</if>>
 	<!-- 初始化恋人列表，将已设定的恋人加入到数组中 -->
 	<<if $loveInterestList is undefined>>
 		<<set $loveInterestList to []>>
@@ -49,40 +53,7 @@
 <</widget>>
 
 <<widget "potentialLoveInterestsList">>
-	<<set _potentialLoveInterests = []>>
-	<<if $robinromance is 1>>
-		<<run _potentialLoveInterests.push("Robin")>>
-	<</if>>
-	<<if $whitneyromance is 1 and C.npc.Whitney.state isnot "dungeon">>
-		<<run _potentialLoveInterests.push("Whitney")>>
-	<</if>>
-	<<if $kylarenglish gte 1 and C.npc.Kylar.state isnot "prison">>
-		<<run _potentialLoveInterests.push("Kylar")>>
-	<</if>>
-	<<if $sydneyromance is 1>>
-		<<run _potentialLoveInterests.push("Sydney")>>
-	<</if>>
-	<<if $syndromeeden is 1>>
-		<<run _potentialLoveInterests.push("Eden")>>
-	<</if>>
-	<<if $dateCount.Avery gte 3 and C.npc.Avery.state isnot "dismissed">>
-		<<run _potentialLoveInterests.push("Avery")>>
-	<</if>>
-	<<if StartConfig.version.slice(0) lt "0.5.1.0">>
-		<<if $syndromewolves is 1 and $deviancy gte 35>>
-			<<run _potentialLoveInterests.push("Black Wolf")>>
-		<</if>>
-	<<else>>
-		<<if $syndromewolves is 1 and hasSexStat("deviancy", 3)>>
-			<<run _potentialLoveInterests.push("Black Wolf")>>
-		<</if>>
-	<</if>>
-	<<if $syndromebird is 1>>
-		<<run _potentialLoveInterests.push("Great Hawk")>>
-	<</if>>
-	<<if $farm_stage gte 7 and $alex_countdown is undefined>>
-		<<run _potentialLoveInterests.push("Alex")>>
-	<</if>>
+	<<set _potentialLoveInterests = [].concat(setup.loveInterestNpc.filter(LI => isPossibleLoveInterest(LI)))>>
 	<!-- 雷米恋爱模组 -->
 	<<if window.modUtils.getMod('Remy Love Mod') and $remyromance is 1>>
 	   	<<run _potentialLoveInterests.push("Remy")>>
@@ -98,13 +69,13 @@
 	模组<br>
 	| <span class="red">？</span><mouse class="tooltip linkBlue">使用须知<span>
 		本模组对于原版设定恋人的机制改动如下：<br>
-		1.删除主要恋人/次要恋人选项。恋人数量不受<i>意识</i>等级影响，上限为10；<br>
-		2.目前只能设定原版9位li，以及雷米恋爱模组新增的雷米li，共10个NPC为恋人；<br>
+		1.删除主要恋人/次要恋人选项。恋人数量不受<i>意识</i>等级影响，上限为11；<br>
+		2.目前只能设定原版10位li，以及雷米恋爱模组新增的雷米li，共11个NPC为恋人；<br>
 		3.“恋人”栏中的对象均会受到<i>终生伴侣</i>特质加成，且未开启相关设置时，更换恋人不会导致该特质的负面影响。
 	</span></mouse> |
 	<span class="gold">！</span><mouse class="tooltip linkBlue">注意事项<span>
-		1.本模组适配0.5.0.x及以上的版本，更早的游戏版本未经测试；<br>
-		2.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为2及以下。<br>
+		1.该版本适配游戏本体0.5.10.x及以上的版本；<br>
+		2.卸载本模组前，请先手动将“恋人”栏内设定的恋人数量调整为3及以下。<br>
 		3.写着玩的，不要二传。
 	</span></mouse> |
 	<<if window.modUtils.getMod('NPC Avatars Mod') or window.modUtils.getMod('NPC Avatars Mod (SF)')>><!-- 加载社交栏NPC小头像模组时显示图像说明 -->
@@ -149,7 +120,7 @@
 	<span class="no-numberify">
 		<<moreLoveInterestConfirm>><!-- 每次与恋人列表交互后，输出各栏位恋人 -->
 		<<set _loveInterestcn to []>><!-- 生成NPC的中文名 -->
-		<<run $loveInterestList.forEach((x)=>_loveInterestcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
+		<<run $loveInterestList.forEach((x)=>_loveInterestcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Gwylan","格威岚").replace("Remy","雷米")))>>
 		<<if $dragMode>>
 			<div id="LoveList" ondrop="dropLoveMLIM(event)" ondragover="allowDropMLIM(event)">
 				<<more_love_interest_Love_UI>>
@@ -162,7 +133,7 @@
 <<widget "potentialLoveInterestList">>
 	<span class="no-numberify">
 		<<set _potentialLoveInterestListcn to []>>
-		<<run _potentialLoveInterests.forEach((x)=>_potentialLoveInterestListcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")))>>
+		<<run _potentialLoveInterests.forEach((x)=>_potentialLoveInterestListcn.pushUnique(x.replace("None","没有人").replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Gwylan","格威岚").replace("Remy","雷米")))>>
 		<<if $dragMode>>
 			<div id="NonLoveList" ondrop="dropNonLoveMLIM(event)" ondragover="allowDropMLIM(event)">
 				<<more_love_interest_Non_Love_UI>>
@@ -193,6 +164,12 @@
 	<<if !window.modUtils.getMod('Remy Love Mod') and $loveInterestList.includes("Remy")>>
 		<<set $loveInterestList.delete("Remy")>>
 	<</if>>
+	<<if !hasSexStat("deviancy", 3)>>
+		<<set $loveInterestList.delete("Black Wolf")>>
+	<</if>>
+	<<if !($auriga_artefact and C.npc.Avery.state isnot "dismissed")>>
+		<<set $loveInterestList.delete("Avery")>>
+	<</if>>
 	<<set $loveInterest to {
 		primary: $loveInterestList[0] is undefined ? "None" : $loveInterestList[0],
 		secondary: $loveInterestList[1] is undefined ? "None" : $loveInterestList[1],
@@ -204,6 +181,7 @@
 		octonary: $loveInterestList[7] is undefined ? "None" : $loveInterestList[7],
 		nonary: $loveInterestList[8] is undefined ? "None" : $loveInterestList[8],
 		decimal: $loveInterestList[9] is undefined ? "None" : $loveInterestList[9],
+		undecimal: $loveInterestList[10] is undefined ? "None" : $loveInterestList[10],
 	}>>
 <</widget>>
 

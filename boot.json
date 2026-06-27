@@ -1,19 +1,17 @@
 {
   "name": "More Love Interests Mod",
-  "version": "0.1.3.2",
+  "version": "0.1.7.0",
   "styleFileList": [
     "module/css/moreLoveInterests.css"
   ],
   "scriptFileList": [
     "game/More_Love_Interest_Mod_Collab.js",
-    "game/More_Love_Interest_Mod_Drag.js",
-    "game/foodPreference.js"
+    "game/More_Love_Interest_Mod_Drag.js"
   ],
   "tweeFileList": [
-    "game/more_love_interest_main.twee",
-    "game/more_love_interest_icon.twee",
     "game/more_love_interest_box.twee",
-    "game/more_love_interest_food_preference.twee"
+    "game/more_love_interest_icon.twee",
+    "game/more_love_interest_main.twee"
   ],
   "imgFileList": [],
   "addonPlugin": [
@@ -24,69 +22,21 @@
       "params": [
         {
           "passage": "Widgets Attitudes",
-          "findString": "<<set _loveIntStart1 to $loveInterest.primary>>\n\t\t<<set _loveIntStart2 to $loveInterest.secondary>>\n\t\t<div id=\"loveInterest\" class=\"settingsToggleItem\">\n\t\t\t<div class=\"gold bold\">你认为谁是你的恋人？</div>\n\t\t\t<<loveInterest>>\n\t\t</div>\n\t\t<<loveInterestFunction>>",
+          "findString": "<<set _loveIntStart1 to $loveInterest.primary>>\n\t\t<<set _loveIntStart2 to $loveInterest.secondary>>\n\t\t<<set _loveIntStart3 to $loveInterest.tertiary>>\n\t\t<div id=\"loveInterest\" class=\"settingsToggleItem\">\n\t\t\t<div class=\"gold bold\">你认为谁是你的恋人？</div>\n\t\t\t<<loveInterest>>\n\t\t</div>\n\t\t<<loveInterestFunction>>",
           "replace": "<div class='settingsToggleItem'><<moreLoveInterest>></div>",
           "_comment": "删去原版的 主要/次要恋人 选项、恋人数量限制和终身伴侣特质效果，并新增模组的交互框"
         },
         {
           "passage": "Widgets",
-          "findString": "{\n\t\t\t\t\tT.loveInterest = false;",
-          "replace": "if (V.loveInterest.quaternary == T.npcData.nam) {T.loveInterest = true;} else if (V.loveInterest.quinary == T.npcData.nam) {T.loveInterest = true;} else if (V.loveInterest.senary == T.npcData.nam) {T.loveInterest = true;} else if (V.loveInterest.septenary == T.npcData.nam) {T.loveInterest = true;} else if (V.loveInterest.octonary == T.npcData.nam) {T.loveInterest = true;} else if (V.loveInterest.nonary == T.npcData.nam) {T.loveInterest = true;} else {T.loveInterest = false;",
+          "findString": "/* Check if this is a main love interest */\n\t\t\t\tif (V.loveInterest.primary == T.npcData.nam) {\n\t\t\t\t\tT.loveInterest = true;\n\t\t\t\t} else if (V.loveInterest.secondary == T.npcData.nam) {\n\t\t\t\t\tT.loveInterest = true;\n\t\t\t\t} else if (V.loveInterest.tertiary == T.npcData.nam) {\n\t\t\t\t\tT.loveInterest = true;\n\t\t\t\t} else {\n\t\t\t\t\tT.loveInterest = false;\n\t\t\t\t}",
+          "replace": "/* 重写这部分判定恋人的代码 */\n\t\t\t\tT.loveInterest = Object.values(V.loveInterest).includes(T.npcData.nam);",
           "_comment": "使设置为恋人的NPC在社交栏内显示恋人标记"
         },
         {
-          "passage": "Mirror Locket",
-          "findString": "($loveInterest.primary is _npc or $loveInterest.secondary is _npc)",
-          "replace": "$loveInterestList.includes(_npc)",
-          "_comment": "使设置为恋人的NPC在同心吊坠页面作为可选项"
-        },
-        {
-          "passage": "Widgets Avery",
-          "findString": "<<if $loveInterest.primary is \"Avery\">>\n\t\t<<if $loveInterest.secondary isnot \"None\">>\n\t\t\t<<set $loveInterest.primary to $loveInterest.secondary>>\n\t\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<<else>>\n\t\t\t<<set $loveInterest.primary to \"None\">>\n\t\t<</if>>\n\t\t<span class = \"red\">艾弗里不再是你的爱人了。</span>\n\t<<elseif $loveInterest.secondary is \"Avery\">>\n\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<span class = \"red\">艾弗里不再是你的爱人了。</span>",
-          "replace": "<<if $loveInterestList.includes(\"Avery\")>><<set $loveInterestList.delete(\"Avery\")>><<moreLoveInterestConfirm>><span class = \"red\">艾弗里不再是你的爱人了。</span>",
-          "_comment": "放逐艾弗里时，从恋人列表中清除艾弗里"
-        },
-        {
-          "passage": "Kylar Abduction Intro Kiss",
-          "findString": "$loveInterest.primary is \"Kylar\" or $loveInterest.secondary is \"Kylar\"",
-          "replace": "$loveInterestList.includes(\"Kylar\")",
-          "_comment": "凯拉尔斯德哥尔摩绑架时，调整自愿初吻和非自愿初吻的判定条件"
-        },
-        {
-          "passage": "Kylar Abduction Intro Bite",
-          "findString": "$loveInterest.primary is \"Kylar\" or $loveInterest.secondary is \"Kylar\"",
-          "replace": "$loveInterestList.includes(\"Kylar\")",
-          "_comment": "凯拉尔斯德哥尔摩绑架时，调整自愿初吻和非自愿初吻的判定条件"
-        },
-        {
-          "passage": "Kylar Abduction Rape Finish",
-          "findString": "$loveInterest.primary is \"Kylar\" or $loveInterest.secondary is \"Kylar\"",
-          "replace": "$loveInterestList.includes(\"Kylar\")",
-          "_comment": "凯拉尔斯德哥尔摩绑架时，调整自愿初吻和非自愿初吻的判定条件"
-        },
-        {
-          "passage": "Kylar Abduction Food Kiss",
-          "findString": "$loveInterest.primary is \"Kylar\" or $loveInterest.secondary is \"Kylar\"",
-          "replace": "$loveInterestList.includes(\"Kylar\")",
-          "_comment": "凯拉尔斯德哥尔摩绑架时，调整自愿初吻和非自愿初吻的判定条件"
-        },
-        {
-          "passage": "Kylar Basement Rape Finish",
-          "findString": "$loveInterest.primary is \"Kylar\" or $loveInterest.secondary is \"Kylar\"",
-          "replace": "$loveInterestList.includes(\"Kylar\")",
-          "_comment": "凯拉尔放逐绑架时，调整自愿初吻和非自愿初吻的判定条件"
-        },
-        {
-          "passage": "Widgets Kylar",
-          "findString": "<<if $loveInterest.primary is \"Kylar\">>\n\t\t<<if $loveInterest.secondary isnot \"None\">>\n\t\t\t<<set $loveInterest.primary to $loveInterest.secondary>>\n\t\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<<else>>\n\t\t\t<<set $loveInterest.primary to \"None\">>\n\t\t<</if>>\n\t\t<span class=\"red\">凯拉尔已被监禁，<<nnpc_He \"Kylar\">>不再是你的爱人了。</span>\n\t<<elseif $loveInterest.secondary is \"Kylar\">>\n\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<span class=\"red\">凯拉尔已被监禁，<<nnpc_He \"Kylar\">>不再是你的爱人了。</span>",
-          "replace": "<<if $loveInterestList.includes(\"Kylar\")>><<set $loveInterestList.delete(\"Kylar\")>><<moreLoveInterestConfirm>><span class=\"red\">凯拉尔已被监禁，<<nnpc_He \"Kylar\">>不再是你的爱人了。</span>",
-          "_comment": "放逐凯拉尔时，从恋人列表中清除凯拉尔"
-        },
-        {
-          "passage": "Widgets Whitney",
-          "findString": "<<if $loveInterest.primary is \"Whitney\">>\n\t\t<<if $loveInterest.secondary isnot \"None\">>\n\t\t\t<<set $loveInterest.primary to $loveInterest.secondary>>\n\t\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<<else>>\n\t\t\t<<set $loveInterest.primary to \"None\">>\n\t\t<</if>>\n\t\t<span class = \"red\">惠特尼不再是你的爱人了。</span>\n\t<<elseif $loveInterest.secondary is \"Whitney\">>\n\t\t<<set $loveInterest.secondary to \"None\">>\n\t\t<span class = \"red\">惠特尼不再是你的爱人了。</span>",
-          "replace": "<<if $loveInterestList.includes(\"Whitney\")>><<set $loveInterestList.delete(\"Whitney\")>><<moreLoveInterestConfirm>><span class=\"red\">惠特尼不再是你的爱人了。</span>",
-          "_comment": "放逐惠特尼时，从恋人列表中清除惠特尼"
+          "passage": "Widgets Attitudes",
+          "findString": "<<widget \"loveInterestRemove\">>",
+          "replace": "<<widget \"loveInterestRemove\">>\n\t<<set $loveInterestList.delete(_args[0])>>\n\t<<moreLoveInterestConfirm>>\n\t<<exit>>\n\t/* 以上为更多恋人模组改写放逐npc时的代码 */",
+          "_comment": "放逐艾弗里、凯拉尔、惠特尼时，从恋人列表中清除对应npc"
         }
       ]
     },
@@ -123,7 +73,7 @@
     },
     {
       "modName": "GameVersion",
-      "version": ">=0.5.3.0"
+      "version": ">=0.5.10.0"
     }
   ]
 }

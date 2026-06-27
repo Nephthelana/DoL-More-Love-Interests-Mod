@@ -55,8 +55,8 @@ setup.foodPreference = {
 		name: "linguine",
 		NPC: ["Avery"],
 	},
-	"soufflé": {
-		name: "soufflé",
+	"souffle": {
+		name: "souffle",
 		NPC: ["Avery"],
 	},
 	"wolfbrew": {
@@ -67,4 +67,8 @@ setup.foodPreference = {
 		name: "ghostbrew",
 		NPC: ["Black Wolf","Great Hawk"],
 	},
+	"plum_pudding": {
+		name: "plum_pudding",
+		NPC: ["Gwylan"],
+	}
 }

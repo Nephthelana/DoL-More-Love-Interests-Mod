@@ -30,6 +30,7 @@
 	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
 		<<set _npc to $loveInterestList[_k]>>
 		<<set _i to $NPCNameList.indexOf($loveInterestList[_k])>>
+		<<run statusCheck(_npc)>>
 		<div class="MLIM-icon">
 			<<relationshipmodicon>>
 		</div>
@@ -66,6 +67,7 @@
 	<<elseif window.modUtils.getMod('NPC Avatars Mod')>>
 		<<set _npc to _potentialLoveInterests[_j]>>
 		<<set _i to $NPCNameList.indexOf(_potentialLoveInterests[_j])>>
+		<<run statusCheck(_npc)>>
 		<div class="MLIM-icon">
 			<<relationshipmodicon>>
 		</div>

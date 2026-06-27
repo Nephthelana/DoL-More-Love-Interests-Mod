@@ -23,18 +23,18 @@
 
 :: Widgets Food Preference [widget]
 <<widget "foodPreference">>
-	<<print _args[0].replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Remy","雷米")>>
+	<<print _args[0].replace("Robin","罗宾").replace("Whitney","惠特尼").replace("Kylar","凯拉尔").replace("Eden","伊甸").replace("Avery","艾弗里").replace("Sydney","悉尼").replace("Alex","艾利克斯").replace("Black Wolf","黑狼").replace("Great Hawk","巨鹰").replace("Gwylan","格威岚").replace("Remy","雷米")>>
 	<div class="MLIM-food">
 		<<for _food range Object.keys(setup.foodPreference).filter(a => setup.foodPreference[a].NPC.includes(_args[0]))>>
-			<<set _foodInfo to setup.plants[setup.foodPreference[_food].name]>>
-			<<capture _foodInfo>>
+			<<set _foodInfo to setup.foodstuff[setup.foodPreference[_food].name]>>
+			<<capture _food _foodInfo>>
 				<<set _foodIngredients to "">>
-				<<for _ingredient range _foodInfo.ingredients>>
-					<<set _foodIngredients += ("<<tendingicon `setup.plants[\'" + _ingredient + "\'].icon`>>" + setup.plants[_ingredient].plural + "<br>")>>
+				<<for _ingredient range _foodInfo.recipe.ingredients>>
+					<<set _foodIngredients += ("<<foodstufficon " + _ingredient + ">>" + setup.foodstuff[_ingredient].plural + "<br>")>>
 				<</for>>
 				<div class="MLIM-item">
 					<mouse class="tooltip-image">
-						<<tendingicon `_foodInfo.icon`>>
+						<<foodstufficon _food>>
 						<span>
 							_foodInfo.plural<br>
 							<div class="MLIM-divider"></div>
@@ -44,7 +44,7 @@
 					<<if $debug is 1>>
 						<div class="MLIM-divider-food"></div>
 						<span class="no-numberify MLIM-link">
-							<<link [[`+1`|Food Preference]]>><<set $plants[_foodInfo.name].amount += 1>><</link>>
+							<<link [[`+1`|Food Preference]]>><<set $foodstuff[_food].amount += 1>><</link>>
 						</span>
 					<</if>>
 				</div>
